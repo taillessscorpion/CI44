@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.input-wrapper input {
+    width: 100%;
+    padding: 10px 13px;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: 1px;
+    border-radius: 3px;
+}
+.error {
+    color: red;
+}
