@@ -1,4 +1,15 @@
 const components = {};
+components.languageChoice = `
+<div id="language-container">
+    <div class="symbol-container">
+        <div class="language-symbol"></div>
+    </div>
+    <select id="language-selected">
+        <option value="languageViet" selected="selected" >Tiếng Việt</option>
+        <option value="languageEngl">English</option>
+    </select>
+</div>
+`
 components.registerScreen = `
 <div class="register-container">
     <div class="register-form">
@@ -19,19 +30,26 @@ components.registerScreen = `
                 <div class="error" id="error-email"></div>
             </div>
             <div class="input-wrapper">
-                <input type="text" name="passwork" placeholder="Passwork...">
-                <div class="error" id="error-passwork"></div>
+                <input type="password" name="password" placeholder="Password...">
+                <img class="show-password" src="../images/show-password.jpg">
+                <div class="error" id="error-password"></div>
             </div>
             <div class="input-wrapper">
-                <input type="text" name="confirmPasswork" placeholder="Confirm Passwork...">
-                <div class="error" id="error-confirm-passwork"></div>
+                <input type="password" name="confirmPassword" placeholder="Confirm Password...">
+                <img class="show-password" src="../images/show-password.jpg">
+                <div class="error" id="error-confirm-password"></div>
             </div>
             <div class="submit-wrapper">
-                <div>Already have an account? <span class="cursor-pointer" id=redirect-to-login>Login</span></div>
+                <div>Already have an account? <span class="cursor-pointer" id=redirect-to-login>Login</span>
+                </div>
                 <button class="btn" type="submit">Register</button>
             </div>
         </form>
     </div>
+</div>
+<div id="alert-wrapper">
+    <div class="alert">ALERT</div>
+    <div class="alert" id="alertTitle"></div>
 </div>
 `
 components.loginScreen = `
@@ -44,8 +62,9 @@ components.loginScreen = `
                 <div class="error" id="error-email"></div>
             </div>
             <div class="input-wrapper">
-                <input type="text" name="passwork" placeholder="Passwork">
-                <div class="error" id="error-passwork"></div>
+                <input type="password" name="password" placeholder="Password">
+                <img class="show-password" src="../images/show-password.jpg">
+                <div class="error" id="error-password"></div>
             </div>
             <div class="submit-wrapper">
                 <div>Don't have an account? <span class="cursor-pointer" id=redirect-to-register>Register</span></div>
@@ -54,4 +73,9 @@ components.loginScreen = `
         </form>
     </div>
 </div>
+<div id="alert-wrapper">
+    <div class="alert">ALERT</div>
+    <div class="alert" id="alertTitle"></div>
+</div>
 `
+components.chatScreen = `<button id="logout">Log out</button>`
