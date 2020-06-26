@@ -37,7 +37,9 @@ controller.register = (registerInfo) => {
             view.setError('error-confirm-password', '');
         }
     }
-    model.register(registerInfo.firstName, registerInfo.lastName, registerInfo.email, registerInfo.password);
+    if (registerInfo.firstName != '' && registerInfo.lastName != '' && registerInfo.email != '' && registerInfo.password != '') {
+        model.register(registerInfo.firstName, registerInfo.lastName, registerInfo.email, registerInfo.password);
+    }
 }
 controller.login = (loginInfo) => {
     if (loginInfo.email === '') {
@@ -53,7 +55,9 @@ controller.login = (loginInfo) => {
     else if (loginInfo.password != '') {
         view.setError('error-password', '');
     }
-    model.login(loginInfo.email, loginInfo.password);
+    if (loginInfo.email != '' && loginInfo.password != '') {
+        model.login(loginInfo.email, loginInfo.password);
+    }
 }
 controller.showPassword = (e) => {
     if (e.target.parentElement.getElementsByTagName("input")[0].type === "password") {
