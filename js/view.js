@@ -55,11 +55,16 @@ view.setShowPassword = () => {
         showPassword[a].addEventListener("click", (e) => {controller.showPassword(e)});
     }
 }
+var autoClearAlert, showAlertDelay
 view.setAlert = (message) => {
+    clearTimeout(autoClearAlert);
+    clearTimeout(showAlertDelay);
     const showAlert = document.getElementById('alertTitle');
+    showAlert.parentElement.style.transform = '';
     for(a=0;a<showAlert.parentElement.children.length;a++) {
         showAlert.parentElement.children[a].addEventListener("click", (e) => {e.target.parentElement.style.transform = '';})
     }
-    showAlert.parentElement.style.transform = 'translateY(-100vh)';
     showAlert.innerHTML = message;
+    showAlertDelay = setTimeout(()=>{showAlert.parentElement.style.transform = 'translateY(-100vh)'; }, 100);
+    autoClearAlert = setTimeout(()=>{showAlert.parentElement.style.transform = ''}, 3000);
 }
