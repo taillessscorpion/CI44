@@ -24,7 +24,7 @@ model.login = (email, password) => {
             alert('Please verify your email!');
         }
     }).catch((error) => {
-        view.setAlert(error.message);
+        // view.setAlert(error.message);
         alert(error.message);
     })
 }
