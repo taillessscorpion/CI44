@@ -1,15 +1,5 @@
 const components = {};
-components.languageChoice = `
-<div id="language-container">
-    <div class="symbol-container">
-        <div class="language-symbol"></div>
-    </div>
-    <select id="language-selected">
-        <option value="languageViet" selected="selected" >Tiếng Việt</option>
-        <option value="languageEngl">English</option>
-    </select>
-</div>
-`
+
 components.registerScreen = `
 <div class="register-container">
     <div class="register-form">

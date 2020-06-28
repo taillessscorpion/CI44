@@ -1,12 +1,7 @@
 const view = {};
-// view.setShowPassword = () => {
-//     var showPassword = document.getElementById("show-password");
-// }
+
 view.setActiveScreen = (screenName) => {
-    // document.getElementById("app").innerHTML = components[screenName] + components['languageChoice'];
     document.getElementById("app").innerHTML = components[screenName];
-    // languages.checkActiveLanguage();
-    // view.activeScreen = screenName;
     switch (screenName) {
         case 'registerScreen':
             const registerForm = document.getElementById('form-register');
@@ -14,6 +9,7 @@ view.setActiveScreen = (screenName) => {
             view.setShowPassword();
             redirectToLogin.addEventListener('click', () => { view.setActiveScreen('loginScreen')});
             registerForm.addEventListener('submit', (e) => {
+                console.log(e);
                 e.preventDefault();
                 const registerInfo = {
                     firstName: registerForm.firstName.value,
@@ -31,6 +27,7 @@ view.setActiveScreen = (screenName) => {
             view.setShowPassword();
             redirectToRegister.addEventListener('click', () => { view.setActiveScreen('registerScreen') });
             loginForm.addEventListener('submit', (e) => {
+                console.log(e);
                 e.preventDefault();
                 const loginInfo = {
                     email: loginForm.email.value,
@@ -42,6 +39,7 @@ view.setActiveScreen = (screenName) => {
         case 'chatScreen':
             const logout = document.getElementById("logout");
             logout.addEventListener("click", () => {model.logout()});
+            break;
     }
 }
 view.setError = (errorName, errorShow) => {
@@ -64,7 +62,7 @@ view.setAlert = (message) => {
     for(a=0;a<showAlert.parentElement.children.length;a++) {
         showAlert.parentElement.children[a].addEventListener("click", (e) => {e.target.parentElement.style.transform = '';})
     }
-    showAlert.innerHTML = message;
+    showAlert.innerText = message;
     showAlertDelay = setTimeout(()=>{showAlert.parentElement.style.transform = 'translateY(-100vh)'; }, 100);
     autoClearAlert = setTimeout(()=>{showAlert.parentElement.style.transform = ''}, 3000);
 }

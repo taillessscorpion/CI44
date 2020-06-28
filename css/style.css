@@ -25,44 +25,7 @@
     padding-left: 5px;
     padding-top: 5px;
 }
-#language-container {
-    position: sticky;
-    transform: translate(0vw, -100vh);
-    z-index: 1;
-    width: 140px;
-    height: 40px;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2px;
-    background-color: #007bff;
-    border-radius: 5%;
-}
-#language-container .symbol-container {
-    width: 35%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#language-container .symbol-container .language-symbol {
-    height: 40px;
-    width: 40px;
-    background: url(../images/languages-symbol.jpg);
-    background-size: cover;
-}
-#language-selected {
-    color: #000000;
-    height: 25px;
-    background-color: transparent;
-    border: 0px;
-}
-#language-selected option {
-    color: rgb(0, 0, 0);
-    border: 0px;
-    background-color: #007bff;
-}
+
 .show-password {
     position: absolute;
     width: 15px;

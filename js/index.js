@@ -11,10 +11,10 @@ window.onload = () => {
     };
     firebase.initializeApp(firebaseConfig);
     firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
+        if (user && user.emailVerified) {
             view.setActiveScreen('chatScreen');
         } else {
-            view.setActiveScreen('registerScreen');
+            view.setActiveScreen('loginScreen');
         }
     });
 }
