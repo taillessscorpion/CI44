@@ -67,3 +67,63 @@ controller.showPassword = (e) => {
         e.target.parentElement.getElementsByTagName("input")[0].type = "password";
     }
 }
+controller.sendMessage = (message) => {
+    if(message != '') {
+        const trimedMessage = message.toString().trim();
+        if(trimedMessage != '') {
+            view.setActiveMessage(trimedMessage, model.currentUser.email);
+            model.updateDocToFirebase('messages', trimedMessage, "message");
+        }
+        model.currentUser.unsent.message = '';
+        model.downloadConversationsInfo();
+    }
+}
+controller.sendImage = (containerInfo) => {
+    var imageLinkList = [];
+    for(a=0;a<containerInfo.length;a++) {
+        const imageLink = utils.getUrlFromBackground(containerInfo[a].style.background);
+        imageLinkList.push(imageLink);
+    }
+    model.updateDocToFirebase('messages', imageLinkList, "image");
+    model.updateDocToFirebase('imagesShared', model.currentUser.stored)
+    view.setActiveImagesMessage(model.currentUser.unsent.images, model.currentUser.email);
+    model.currentUser.unsent.images = [];
+    model.currentUser.stored = [];
+    containerInfo[0].parentElement.innerHTML = '';
+    model.downloadConversationsInfo();
+}
+controller.checkBeforeUploadImageFiles = async function(imageFiles) {
+    try {
+        for(i=0;i<imageFiles.length;i++) {
+            if(model.currentConversation.imagesShared.length === 0) {
+                await model.uploadImageFilesToStorage(imageFiles[i]);
+            } else {
+                for(y=0;y<model.currentConversation.imagesShared.length;y++) {
+                    if(imageFiles[i].name === model.currentConversation.imagesShared[y].name) {
+                        model.getImageFilesFromStorage(model.currentConversation.imagesShared[y]);
+                    } else {
+                        if(y === model.currentConversation.imagesShared.length-1) {
+                            if (model.currentUser.stored.length === 0) {
+                                await model.uploadImageFilesToStorage(imageFiles[i]);
+                            } else {
+                                for(z=0;z<model.currentUser.stored.length;z++) {
+                                    if(imageFiles[i].name === model.currentUser.stored[z].name) {
+                                        model.getImageFilesFromStorage(model.currentUser.stored[z])
+                                    }
+                                    else {
+                                        if(z === model.currentUser.stored.length-1) {
+                                            await model.uploadImageFilesToStorage(imageFiles[i]);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    } catch (err) {
+        view.setAlert(err.message);
+    }
+}
+

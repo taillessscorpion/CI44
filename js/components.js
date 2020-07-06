@@ -1,5 +1,9 @@
 const components = {};
-
+components.alertMessage = `
+<div id="alert-wrapper">
+    <div class="alert">ALERT</div>
+    <div class="alert" id="alertTitle"></div>
+</div>`
 components.registerScreen = `
 <div class="register-container">
     <div class="register-form">
@@ -7,11 +11,11 @@ components.registerScreen = `
         <form id="form-register">
             <div class="name-wrapper">
                 <div class="input-wrapper">
-                    <input type="text" name="firstName" placeholder="First Name...">
+                    <input type="text" autocomplete="off" name="firstName" placeholder="First Name...">
                     <div class="error" id="error-first-name"></div>
                 </div>
                 <div class="input-wrapper">
-                    <input type="text" name="lastName" placeholder="Last Name...">
+                    <input type="text" autocomplete="off" name="lastName" placeholder="Last Name...">
                     <div class="error" id="error-last-name"></div>
                 </div>
             </div>
@@ -37,9 +41,6 @@ components.registerScreen = `
         </form>
     </div>
 </div>
-<div id="alert-wrapper">
-    <div class="alert">ALERT</div>
-    <div class="alert" id="alertTitle"></div>
 </div>
 `
 components.loginScreen = `
@@ -63,9 +64,30 @@ components.loginScreen = `
         </form>
     </div>
 </div>
-<div id="alert-wrapper">
-    <div class="alert">ALERT</div>
-    <div class="alert" id="alertTitle"></div>
+`
+components.chatScreen = `
+<div class="chat-container">
+    <div class="chat-header">Minx Chat</div>
+    <div class="main">
+        <div class="conversation-details">
+            <div class="coversation-title">Fuckin Stranger</div>
+            <div class="list-message"></div>
+            <div class="input-message-area">
+                <div class="image-message-container"></div>
+                <form id="send-message-form">
+                    <div class="image-input">
+                    <input type="file" multiple name="images" accept="image/png, image/jpeg, image/jpg">
+                    <label for="file"><i class="fa fa-camera" aria-hidden="true"></i></label>
+                    </div>
+                    <textarea type="text" autofocus="true" spellcheck="false" placeholder="Type a message..."></textarea>
+                    <button><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 `
-components.chatScreen = `<button id="logout">Log out</button>`
+components.unchooseImageButton = `<div class='close-btn'><i class="fa fa-times" aria-hidden="true"></i></div>`
+components.logOut = `
+<button id="logout">Log out</button>`
+

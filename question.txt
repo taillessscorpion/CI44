@@ -1,0 +1,2 @@
+SHOULD we code in a way it's less than code, less than coding time, but it takes longer time to get response; that means it's good for us  
+OR code in other way it's less than doing things, less than response time, but there're so many crazy complex lines of code; that means it's good for computers?

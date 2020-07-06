@@ -4,6 +4,19 @@
     box-sizing: border-box;
     overflow: hidden;
 }
+img {
+    object-fit: contain;
+    border-radius: 20px;
+}
+input:focus {
+    outline: rgb(1, 132, 255) auto 1px;
+}
+button:focus {
+    outline: rgb(1, 132, 255) auto 1px;
+}
+textarea:focus {
+    outline: rgb(1, 132, 255) auto 1px;
+}
 .input-wrapper input {
     width: 100%;
     padding: 10px 13px;
@@ -63,4 +76,36 @@
     text-shadow: 2px 0 5px rgb(255, 65, 65), -2px 0 5px rgb(255, 71, 71), 0px 2px 5px rgb(255, 83, 83), 0px -2px 5px rgb(255, 71, 71),
     5px 0 10px rgb(255, 53, 86), -5px 0 10px rgb(255, 46, 81), 0px 5px 10px rgb(255, 50, 84), 0px -5px 10px rgb(255, 53, 87),
     0 0 15px rgb(129, 28, 28);
+}
+#logout {
+    position: fixed;
+    transform: translateY(-100vh);
+}
+::-webkit-scrollbar {
+    width: 10px;
+    height: 95%;
+}
+::-webkit-scrollbar-track {
+    background: #aebad3;
+    border-radius: 5px;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background: rgb(22, 92, 223);
+    border-radius: 5px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(0, 49, 141);
+    border-radius: 5px;
+}
+
+.background-test {
+    background: url(../images/test.jpg);
+    display: block;
+    height: 100px;
+    width: 100px;
+    background-size: cover;
 }

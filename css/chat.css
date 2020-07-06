@@ -1,0 +1,223 @@
+.chat-container {
+    font-family: sans-serif;
+    height: 100vh;
+}
+.chat-header {
+    background-color: rgb(0, 89, 255);
+    color: white;
+    height: 64px;
+    font-size: 24px;
+    line-height: 64px;
+    text-align: center;
+}
+.main {
+    height: calc(100vh - 64px);
+}
+.conversation-details {
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: start;
+}
+.conversation-details .coversation-title {
+    flex-basis: 64px;
+    line-height: 64px;
+    text-align: center;
+    font-size: 24px;
+    border-bottom: solid 1px #dbdbdb;
+    color: rgb(7, 7, 7);
+}
+.conversation-details .list-message {
+    max-height: calc(100% - 128px);
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+
+
+
+
+
+
+.conversation-details .input-message-area{
+    display: flex;
+    flex-flow: column nowrap;
+    border-top: solid 1px rgb(165, 165, 165);
+    align-items: flex-end;
+    max-height: 310px;
+    width: 100vw;
+
+}
+.conversation-details .image-message-container {
+    background-color: transparent;
+    max-height: 244px;
+    width: 100vw;
+    padding: 5px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+    overflow-y: auto;
+}
+.block-of-image {
+    margin: 2px;
+    height: 120px;
+    width: 120px;
+    border-radius: 10%;
+    position: relative;
+}
+.block-of-image .close-btn {
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    text-align: center;
+    right: 0;
+    border: 0px;
+    border-radius: 50%;
+    background-color: rgba(122, 122, 122, 0.3);
+    color: rgb(0, 89, 255);
+    font-size: 18px;
+}
+.block-of-image:hover .close-btn{
+    color: rgb(248, 248, 248);
+    background-color: rgba(204, 0, 0, 0.7);
+}
+.image-message-container .close-btn:active {
+    color: rgb(219, 43, 43);
+    background-color: rgb(196, 154, 39);
+}
+
+.conversation-details #send-message-form {
+    height: 64px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.conversation-details #send-message-form .image-input {
+    width: 60px;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.image-input input {
+    position: fixed;
+    height: 0px;
+    width: 0px;
+    border: none;
+    opacity: 0;
+    z-index: -1;
+}
+.image-input input:focus {
+    opacity: 1;
+    z-index: 1;
+}
+.image-input input:focus + label {
+    outline: none;
+    border: rgb(1, 132, 255) solid 2px;
+    border-left: none;
+}
+.image-input label {
+    display: flex;
+    width: 60px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    color: rgb(0, 81, 255);
+    background-color: white;
+    font-size: 200%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.image-input input, .image-input label {
+	cursor: pointer;
+}
+
+.conversation-details #send-message-form textarea {
+    resize: none;
+    height: 100%;
+    line-height: 150%;
+    width: calc(100% - 120px);
+    padding: 10px;
+    border: none;
+    overflow-y: auto;
+    border-radius: 10px;
+}
+.conversation-details #send-message-form textarea:focus {
+    outline: none;
+    border: rgb(1, 132, 255) solid 2px;
+}
+
+.conversation-details #send-message-form button {
+    width: 60px;
+    height: 100%;
+    border: none;
+    color: rgb(0, 81, 255);
+    background-color: white;
+    font-size: 200%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.conversation-details #send-message-form button:hover {
+    outline: none;
+    border: rgb(1, 132, 255) solid 2px;
+    border-right: none;
+}
+.conversation-details #send-message-form button:focus {
+    outline: none;
+    border: rgb(1, 132, 255) solid 2px;
+    border-right: none;
+}
+
+
+
+.conversation-details .message-of-image {
+    max-height: 2160px;
+    max-width: 80%;
+    display: flex;
+    flex-flow: row wrap;
+}
+.message-of-image .few-image-message {
+    height: 240px;
+    width: 240px;
+    border-radius: 10px;
+    margin: 2px;
+}
+.message-of-image .much-image-message {
+    height: 120px;
+    width: 120px;
+    border-radius: 10px;
+    margin: 2px;
+}
+.your-message .message-of-image {
+    justify-content: flex-end;
+}
+.conversation-details .message {
+    padding: 10px;
+    max-width: 45%;
+    border-radius: 10px;
+    word-wrap: break-word;
+}
+.conversation-details .list-message .your-message {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+.conversation-details .list-message .their-message {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.your-message .message {
+    background-color: rgb(0, 89, 255);
+    color: white;
+}
+.their-message .message {
+    
+    background-color: rgb(139, 139, 139);
+    display: inline-block;
+}
