@@ -71,11 +71,9 @@ controller.sendMessage = (message) => {
     if(message != '') {
         const trimedMessage = message.toString().trim();
         if(trimedMessage != '') {
-            view.setActiveMessage(trimedMessage, model.currentUser.email);
             model.updateDocToFirebase('messages', trimedMessage, "message");
         }
         model.currentUser.unsent.message = '';
-        model.downloadConversationsInfo();
     }
 }
 controller.sendImage = (containerInfo) => {
@@ -86,11 +84,9 @@ controller.sendImage = (containerInfo) => {
     }
     model.updateDocToFirebase('messages', imageLinkList, "image");
     model.updateDocToFirebase('imagesShared', model.currentUser.stored)
-    view.setActiveImagesMessage(model.currentUser.unsent.images, model.currentUser.email);
     model.currentUser.unsent.images = [];
     model.currentUser.stored = [];
     containerInfo[0].parentElement.innerHTML = '';
-    model.downloadConversationsInfo();
 }
 controller.checkBeforeUploadImageFiles = async function(imageFiles) {
     try {
@@ -122,8 +118,10 @@ controller.checkBeforeUploadImageFiles = async function(imageFiles) {
                 }
             }
         }
+        document.getElementById("send-message-form").images.value = null;
     } catch (err) {
         view.setAlert(err.message);
     }
+    
 }
 

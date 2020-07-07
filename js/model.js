@@ -2,6 +2,7 @@ const model = {};
 model.currentUser = undefined;
 model.conversationsCollection = 'conversations';
 model.currentConversation = undefined;
+model.conversation = undefined;
 model.register = (firstName, lastName, email, password) => {
     firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
         firebase.auth().currentUser.sendEmailVerification();
@@ -33,19 +34,12 @@ model.login = (email, password) => {
     })
 }
 model.downloadConversations = () => {
-    firebase.firestore().collection(model.conversationsCollection).get().then(res => {
+    firebase.firestore().collection(model.conversationsCollection).where('users', 'array-contains', model.currentUser.email).get().then(res => {
         const conversationsLoaded = utils.getDataFromDocs(res.docs);
+        model.conversation = conversationsLoaded;
         if (conversationsLoaded.length > 0) {
             model.currentConversation = conversationsLoaded[0];
             view.showCurrentConversation();
-        }
-    });
-}
-model.downloadConversationsInfo = () => {
-    firebase.firestore().collection(model.conversationsCollection).get().then(res => {
-        const conversationsLoaded = utils.getDataFromDocs(res.docs);
-        if (conversationsLoaded.length > 0) {
-            model.currentConversation = conversationsLoaded[0];
         }
     });
 }
@@ -53,7 +47,6 @@ model.downloadConversationsInfo = () => {
 model.getImageFilesFromStorage = (imageFile) => {
     model.currentUser.unsent.images.push(imageFile.link);
     view.revealImagesAfterLoad(imageFile.link);
-    console.log('reuse');
 }
 model.uploadImageFilesToStorage = async function (imageFile) {
     let imageRef = firebase.storage().ref().child(`images/messages/${imageFile.name}`);
@@ -71,7 +64,6 @@ model.uploadImageFilesToStorage = async function (imageFile) {
     }).catch((err) => {
         view.setAlert(err.message);
     });
-    console.log('stored');
 }
 model.updateDocToFirebase = (parentsKey, value, childsKey) => {
     if (parentsKey === 'messages') {
@@ -106,8 +98,8 @@ model.updateDocToFirebase = (parentsKey, value, childsKey) => {
             firebase.firestore().collection(model.conversationsCollection).doc(model.currentConversation.id).update(docToUpdate).then();
         }
     }
-}
 
+}
 model.unstoreImageFiles = async function (url) {
     // let imageRef = firebase.storage().refFromURL(url)
     // await imageRef.delete().then(() => {}).catch(function (err) {
@@ -122,7 +114,31 @@ model.unstoreImageFiles = async function (url) {
         }
     }
 }
-
+model.listenConversationChange = () => {
+    firebase.firestore().collection(model.conversationsCollection).where('users', 'array-contains', model.currentUser.email).onSnapshot(res => {
+        const docChanges = res.docChanges();
+        const docChangeType = docChanges[0].type;
+        if (docChangeType == 'added') {
+            // view.showCurrentConversation();
+            console.log('added');
+        } else if (docChangeType == 'modified') {
+            for (oneChange of docChanges) {
+                const oneChangeData = utils.getDataFromDoc(oneChange.doc);
+                if (oneChangeData.id === model.currentConversation.id) {
+                    if(oneChangeData.messages.length != model.currentConversation.messages.length) {
+                        model.currentConversation = oneChangeData;
+                        view.addMessageToScreen(oneChangeData.messages[oneChangeData.messages.length - 1]);
+                    }
+                }
+                for(i=0;i<model.conversation.length;i++) {
+                    if(model.conversation[i].id === oneChangeData.id) {
+                        model.conversation[i] =  oneChangeData;
+                    }
+                }
+            }
+        }
+    })
+}
 model.logout = () => {
     firebase.auth().signOut().then(() => { }).catch((error) => {
         view.setAlert(error.message);

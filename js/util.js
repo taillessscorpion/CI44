@@ -31,3 +31,30 @@ utils.getISOStringDate = () => {
     let newDate = new Date();
     return newDate.toISOString();
 }
+utils.getYearsTwoLastNumber = (year) => {
+    year = year.toString().split('');
+    if(year.length === 4) {
+        return Number(year[2] + year [3])
+    } else {
+        console.log('utils.getYearsTwoLastNumber takes a wrong input')
+    }
+}
+utils.fullfillDateMonth = (date) => {
+    date = date.toString();
+    if(date.length === 1) {
+        return 0 + date
+    } else if (date.length === 2) {
+        return date
+    } else {
+        console.log('utils.fullfillDateMonth takes a wrong input')
+    }
+}
+utils.converseTimeFromISOString = (string) => {
+    newDateFromString = new Date(string);
+    let getMins = utils.fullfillDateMonth(newDateFromString.getMinutes());
+    let getHours = utils.fullfillDateMonth(newDateFromString.getHours());
+    let getDate = utils.fullfillDateMonth(newDateFromString.getHours());
+    let getMonth = utils.fullfillDateMonth(newDateFromString.getMonth());
+    let getYear = utils.getYearsTwoLastNumber(newDateFromString.getFullYear());
+    return `${getHours}:${getMins}, ${getDate}/${getMonth}/${getYear}`
+}

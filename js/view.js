@@ -36,7 +36,6 @@ view.setActiveScreen = (screenName) => {
             break;
         case 'chatScreen':
             document.getElementById("app").innerHTML = components.chatScreen + components.alertMessage + components.logOut
-            const logout = document.getElementById("logout");
             logout.addEventListener("click", () => { model.logout() });
             const sendMessageForm = document.getElementById("send-message-form");
             const inputMessage = sendMessageForm.getElementsByTagName("textarea")[0];
@@ -57,6 +56,8 @@ view.setActiveScreen = (screenName) => {
             });
             imageInput.addEventListener('input', () => {
                 let imageFiles = imageInput.files;
+                for (one of imageInput.files) {
+                }
                 if (imageFiles.length === 0) {
                     view.setAlert('No files choosen');
                 } else if (imageFiles.length > 9-imageMessageContainer.children.length) {
@@ -66,6 +67,8 @@ view.setActiveScreen = (screenName) => {
                 } else {
                     controller.checkBeforeUploadImageFiles(imageFiles);
                 }
+                // imageInput.value = null;
+                
             })
             inputMessage.addEventListener("keypress", (e) => {
                 model.currentUser.unsent.message = inputMessage.value;
@@ -91,6 +94,7 @@ view.setActiveScreen = (screenName) => {
                 inputMessage.value = "";
             })
             model.downloadConversations();
+            model.listenConversationChange();
             break;
     }
 }
@@ -118,9 +122,14 @@ view.setAlert = (message) => {
     showAlertDelay = setTimeout(() => { showAlert.parentElement.style.transform = 'translateY(-100vh)'; }, 0);
     autoClearAlert = setTimeout(() => { showAlert.parentElement.style.transform = '' }, 3000);
 }
-view.setActiveMessage = (message, sender) => {
+view.addMessageToScreen = (message) => {
+    if(message.content === undefined) {view.setActiveImagesMessage(message.images, message.sender, message.createdAt);}
+    else {view.setActiveMessage(message.content, message.sender, message.createdAt)}
+}
+view.setActiveMessage = (message, sender, createdAt) => {
     const messageElement = document.createElement("div");
     messageElement.className = "message";
+    messageElement.title = utils.converseTimeFromISOString(createdAt);
     messageElement.innerText = message;
     const messagesParentsElement = document.createElement("div");
     if (sender === model.currentUser.email) {
@@ -134,9 +143,11 @@ view.setActiveMessage = (message, sender) => {
     listMessage[0].appendChild(messagesParentsElement);
     listMessage[0].scrollTo(0, listMessage[0].scrollHeight);
 }
-view.setActiveImagesMessage = (images, sender) => {
+view.setActiveImagesMessage = (images, sender, createdAt) => {
+    utils.converseTimeFromISOString(createdAt);
     var newImageContainer = document.createElement('div');
     newImageContainer.className = 'message-of-image';
+    newImageContainer.title = utils.converseTimeFromISOString(createdAt);
     if(images.length <= 2) {
         for(i=0; i<images.length;i++) {
             var newImageElement = document.createElement('div');
@@ -168,12 +179,7 @@ view.setActiveImagesMessage = (images, sender) => {
 }
 view.showCurrentConversation = () => {
     for (let oneMessage of model.currentConversation.messages) {
-        if(oneMessage.content != null && oneMessage.content != undefined) {
-            view.setActiveMessage(oneMessage.content, oneMessage.sender);
-        }
-        if(oneMessage.images != null && oneMessage.images != undefined) {
-            view.setActiveImagesMessage(oneMessage.images, oneMessage.sender); 
-        }
+        view.addMessageToScreen(oneMessage);
     }
 }
 view.revealImagesAfterLoad = (imageLink) => {

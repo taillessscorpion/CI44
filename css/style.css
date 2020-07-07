@@ -79,7 +79,14 @@ textarea:focus {
 }
 #logout {
     position: fixed;
-    transform: translateY(-100vh);
+    border:  none;
+    top: 0;
+    right: 0;
+    padding-right: 10px;
+    height: 64px;
+    line-height: 64px;
+    background-color: transparent;
+    color: white;
 }
 ::-webkit-scrollbar {
     width: 10px;
