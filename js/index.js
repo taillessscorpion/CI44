@@ -12,21 +12,20 @@ window.onload = () => {
     firebase.initializeApp(firebaseConfig);
     firebase.auth().onAuthStateChanged((user) => {
         if (user && user.emailVerified) {
-            model.currentUser = {
-                displayName: user.displayName,
-                email: user.email,
-                unsent: {
-                    message: '',
-                    images: [],
-                },
-                stored: [],
-            }
-            view.setActiveScreen('chatScreen');
+            
+            // firebase.firestore().settings({
+            //     cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED
+            // });
+            // firebase.firestore().enablePersistence();
+            firebase.firestore().collection(model.usersCollection).where("email", "==", user.email).get().then((res) => {
+                model.getCurrentUser(res);
+                view.setActiveScreen('chatScreen');
+            })
+            
         } else {
             view.setActiveScreen('loginScreen');
         }
     });
-
 }
 
 

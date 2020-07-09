@@ -28,7 +28,7 @@ controller.register = (registerInfo) => {
         view.setError('error-confirm-password', 'Please confirm password');
         return
     }
-    else  {
+    else {
         if (registerInfo.confirmPassword != registerInfo.password) {
             view.setError('error-confirm-password', 'Password not match');
             return
@@ -68,9 +68,9 @@ controller.showPassword = (e) => {
     }
 }
 controller.sendMessage = (message) => {
-    if(message != '') {
+    if (message != '') {
         const trimedMessage = message.toString().trim();
-        if(trimedMessage != '') {
+        if (trimedMessage != '') {
             model.updateDocToFirebase('messages', trimedMessage, "message");
         }
         model.currentUser.unsent.message = '';
@@ -78,7 +78,7 @@ controller.sendMessage = (message) => {
 }
 controller.sendImage = (containerInfo) => {
     var imageLinkList = [];
-    for(a=0;a<containerInfo.length;a++) {
+    for (a = 0; a < containerInfo.length; a++) {
         const imageLink = utils.getUrlFromBackground(containerInfo[a].style.background);
         imageLinkList.push(imageLink);
     }
@@ -88,29 +88,29 @@ controller.sendImage = (containerInfo) => {
     model.currentUser.stored = [];
     containerInfo[0].parentElement.innerHTML = '';
 }
-controller.checkBeforeUploadImageFiles = async function(imageFiles) {
+controller.checkBeforeUploadImageFiles = async function (imageFiles) {
     try {
-        for(i=0;i<imageFiles.length;i++) {
-            if(model.currentConversation.imagesShared.length === 0) {
+        for (i = 0; i < imageFiles.length; i++) {
+            if (model.currentConversation.imagesShared.length === 0) {
                 await model.uploadImageFilesToStorage(imageFiles[i]);
             } else {
-                for(y=0;y<model.currentConversation.imagesShared.length;y++) {
-                    if(imageFiles[i].name === model.currentConversation.imagesShared[y].name) {
+                for (y = 0; y < model.currentConversation.imagesShared.length; y++) {
+                    if (imageFiles[i].name === model.currentConversation.imagesShared[y].name) {
                         model.getImageFilesFromStorage(model.currentConversation.imagesShared[y]);
-                    } else {
-                        if(y === model.currentConversation.imagesShared.length-1) {
-                            if (model.currentUser.stored.length === 0) {
-                                await model.uploadImageFilesToStorage(imageFiles[i]);
-                            } else {
-                                for(z=0;z<model.currentUser.stored.length;z++) {
-                                    if(imageFiles[i].name === model.currentUser.stored[z].name) {
-                                        model.getImageFilesFromStorage(model.currentUser.stored[z])
-                                    }
-                                    else {
-                                        if(z === model.currentUser.stored.length-1) {
-                                            await model.uploadImageFilesToStorage(imageFiles[i]);
-                                        }
-                                    }
+                        break;
+                    } 
+                    if (y === model.currentConversation.imagesShared.length - 1) {
+                        if (model.currentUser.stored.length === 0) {
+                            await model.uploadImageFilesToStorage(imageFiles[i]);
+                        } else {
+                            for (z = 0; z < model.currentUser.stored.length; z++) {
+                                if (imageFiles[i].name === model.currentUser.stored[z].name) {
+                                    model.getImageFilesFromStorage(model.currentUser.stored[z]);
+                                    break;
+                                }
+                                if (z === model.currentUser.stored.length - 1) {
+                                    await model.uploadImageFilesToStorage(imageFiles[i]);
+                                    break
                                 }
                             }
                         }
@@ -122,6 +122,24 @@ controller.checkBeforeUploadImageFiles = async function(imageFiles) {
     } catch (err) {
         view.setAlert(err.message);
     }
-    
-}
 
+}
+controller.loadConversationFromModel = () => {
+    if (model.currentUser.joinedConversations.length < 1) {
+        console.log('no conversation');
+    } else {
+        /// CALL MODEL TO GET COVERSATION BY ID ///THEN MODEL WILL BE CALLING VIEW SET ACTIVE
+        /// CONVERSATION ONE BY ONE
+        model.getConversation(model.currentUser.joinedConversations)
+    }
+}
+controller.countActivesInConversation = (conversationActiveList) => {
+    const result = 0;
+    for (i=0;i<conversationActiveList.length;i++) {
+        const secondsLong = utils.countFromTpointToNowReturnSeconds(conversationActiveList[i].lastSeen);
+        if(secondsLong <= 600) {
+            result++;
+        }
+    }
+    return result
+}

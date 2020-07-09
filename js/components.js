@@ -72,84 +72,23 @@ components.chatScreen = `
             <div class='old-conversations'>
                 <input spellcheck="false" autocomplete="off" type="text" class="search-conversation">
                 <div class="list-conversations">
-                    <div class='conversation'>
-                        <div class="profile-picture-small"
-                            style="background: url(../images/register-background.jpg); background-size: cover;">
-                        </div>
-                        <div class="profile-info">
-                            <div class="profile-name">minh hieu</div>
-                            <div class="profile-message">
-                                <div class="last-message">ee may</div>
-                                <div class="last-time">20:20</div>
-                            </div>
-                        </div>
-                        <div class="active-light"></div>
-                    </div>
-                    <div class='conversation'>
-                        <div class="profile-picture-small"
-                            style="background: url(../images/register-background.jpg); background-size: cover;">
-                        </div>
-                        <div class="profile-info">
-                            <div class="profile-name">minh hieu</div>
-                            <div class="profile-message">
-                                <div class="last-message">ee may</div>
-                                <div class="last-time">2017</div>
-                            </div>
-                        </div>
-                        <div class="active-light"></div>
-                    </div>
-                    <div class='conversation current'>
-                        <div class="profile-picture-small"
-                            style="background: url(../images/register-background.jpg); background-size: cover;">
-                        </div>
-                        <div class="profile-info">
-                            <div class="profile-name unseen">minh hieu</div>
-                            <div class="profile-message">
-                                <div class="last-message unseen">ee may</div>
-                                <div class="last-time">25/12</div>
-                            </div>
-                        </div>
-                        <div class="active-light"></div>
-                    </div>
-                    <div class='conversation'>
-                        <div class="profile-picture-small"
-                            style="background: url(../images/register-background.jpg); background-size: cover;">
-                        </div>
-                        <div class="profile-info">
-                            <div class="profile-name">minh hieu</div>
-                            <div class="profile-message">
-                                <div class="last-message">ee may</div>
-                                <div class="last-time">2017</div>
-                            </div>
-                        </div>
-                        <div class="active-light"></div>
-                    </div>
-                    <div class='conversation'>
-                        <div class="profile-picture-small"
-                            style="background: url(../images/register-background.jpg); background-size: cover;">
-                        </div>
-                        <div class="profile-info">
-                            <div class="profile-name">minh hieu</div>
-                            <div class="profile-message">
-                                <div class="last-message">ee may</div>
-                                <div class="last-time">2017</div>
-                            </div>
-                        </div>
-                        <div class="active-light"></div>
-                    </div>
                 </div>
             </div>
             <div class='new-conversations'>
                 <div class="send-request">
                     <h1>Send a request:</h1>
                     <form class="add-conversation-form">
-                        <input spellcheck="false" autocomplete="off" type="text" name="email"
-                            placeholder="User's email">
+                        <input spellcheck="false" autocomplete="off" type="text" name="email"placeholder="User's email">
                         <button>Add</button>
-                    </form>
+                        </form>
+                        <div class="error" id='error-request-email'></div>
+                        <div class="reveal-info">
+                            <div class="reveal-picture-tiny"style="background: url(../images/login-background.jpg); background-size: cover;"></div>
+                            <div class="reveal-name">minh hieu</div>
+                        </div>
                 </div>
                 <div class="accept-request">
-                    <h1>Join a requested conversation:</h1>
+                    <h1>Join requested conversations:</h1>
                     <div class='coversation-request-list'>
                         <div class="conversation-request">
                             <div class="profile-picture-tiny"
@@ -184,14 +123,14 @@ components.chatScreen = `
         </div>
         <div class="main">
             <div class="conversation-details">
-                <div class="coversation-title">Fuckin Stranger</div>
+            <div class="conversation-title">Fuckin Stranger</div>
                 <div class="list-message">
                 </div>
                 <div class="input-message-area">
                     <div class="image-message-container"></div>
                     <form id="send-message-form">
                         <div class="image-input">
-                            <input type="file" multiple name="images" accept="image/png, image/jpeg, image/jpg">
+                            <input type="file" multiple name="images" capture accept="image/png, image/jpeg, image/jpg">
                             <label for="file"><i class="fa fa-camera" aria-hidden="true"></i></label>
                         </div>
                         <textarea type="text" autofocus="true" spellcheck="false"
